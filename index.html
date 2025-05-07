@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Grand Troxy Hotel</title>
+
+</head>
+
+<body>
+
+    <div class="servizi">
+        <div class="servizi">
+            <img src="logo.png" class="logo" alt="Grand Troxy Hotel">
+            <div style="font-family: sans-serif;">
+                <a href="index.html" class="servizio-btn">HOME</a>
+                <a href="login.html" class="servizio-btn" id="login-account-btn">LOGIN</a>
+                <a href="chi_siamo.html" class="servizio-btn">CHI SIAMO</a>
+            </div>
+            
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <script>
+        window.onload = function() {
+            const userIsLoggedIn = localStorage.getItem('userIsLoggedIn');
+            const userID = localStorage.getItem("userID");
+            // Trova il pulsante login/account
+            const loginAccountBtn = document.getElementById('login-account-btn');
+
+    
+            if (userIsLoggedIn == 'true') {
+                // Cambia il pulsante Login in Account
+                loginAccountBtn.textContent = 'Account';
+                loginAccountBtn.href = 'account.html'; 
+            } else {
+                // Se non loggato, lascia il pulsante Login
+                loginAccountBtn.textContent = 'Login';
+                loginAccountBtn.href = 'login.html';
+            }
+        }
+    </script>
+
+    <div class="titolo">
+        <h1>Grand Troxy Hotel</h1>
+    </div>
+
+    <div class="titolo2">
+        <h2>Un’oasi di lusso, un’esperienza indimenticabile</h2>
+    </div>
+
+    <br>
+    <br>
+
+    <div class="stanze">    
+        
+        <div class="form-container"> <!-- Aggiungi un contenitore per i form -->
+            <a href="prenotazione1.html" class="stanza-link">
+            <form class="stanza-form" id="standard">
+                
+            <h3>Stanza Standard</h3>
+            <p>Prezzo: €150 a notte</p>
+            <p>Caratteristiche</p>
+
+            <div class="lista">
+                <li>Letto matrimoniale</li>
+                <li>Wi-Fi gratuito</li>
+                <li>Aria condizionata</li>
+                <li>Set cortesia</li>
+                <li>TV 55 pollici</li>
+            </div>
+            </a>
+            <!--<br>
+            <button type="button" class="servizio-btn" onclick="location.href='prenotazione1.html'">Prenota ora</button>
+        -->
+        </form>
+        <a href="prenotazione2.html" class="stanza-link">
+            <form class="stanza-form" id="exclusive">
+                
+                <h3>Stanza Exclusive</h3>
+                <p>Prezzo: €200 a notte</p>
+                <p>Caratteristiche</p>
+
+                <div class="lista">
+                    <li>Letto King Size</li>
+                    <li>Wi-Fi gratuito</li>
+                    <li>Aria condizionata</li>
+                    <li>Set cortesia</li>
+                    <li>TV 75 pollici</li>
+                    <li>Minibar incluso</li>
+                </div>
+            </a>
+            </form>
+            <a href="prenotazione3.html" class="stanza-link">
+            <form class="stanza-form" id="premium">
+                <h3>Stanza Premium</h3>
+                <p>Prezzo: 300€ a notte</p>
+                <p>Caratteristiche</p>
+
+                <div class="lista">
+                    <li>Letto King Size</li>
+                    <li>Wi-Fi gratuito</li>
+                    <li>Aria condizionata</li>
+                    <li>Set cortesia</li>
+                    <li>TV 80 pollici</li>
+                    <li>Minibar incluso</li>
+                    <li>Idromassaggio</li>
+                    <li>Servizio in camera</li>
+                </div>
+            </a>
+            </form>
+        </div>                        
+    </div>
+
+    <br>
+    <br>
+
+    <div class="contatti">
+        <div class="titolo4">Contatti</div>
+        <div class="testo">
+            Email:
+            <span>troxy.hotel104@gmail.com</span>
+            Telefono:
+            <span>334 715 6790</span>
+            Indirizzo:
+            <a href="https://maps.app.goo.gl/eR8XKD4H9FD7Wwu67"><span>Via Soleschiano 90/L</span></a>
+        </div>
+    </div>
+    
+        
+
+    <script src="gestione_hotel.js"></script>
+</body>
+
+</html>

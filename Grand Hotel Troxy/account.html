@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+    <body>
+    <div class="servizi">
+        <img src="logo.png" class="logo" alt="Grand Troxy Hotel">
+        <div>
+            <a href="index.html" class="servizio-btn">HOME</a>
+            <a href="account.html" class="servizio-btn">ACCOUNT</a>
+            <a href="chi_siamo.html" class="servizio-btn">CHI SIAMO</a>
+        </div>
+    </div>
+
+    <div class="titolo3_2">Il Mio Account</div>
+
+    <div class="account-form-container">
+        <form class="account-form" id="account-form">
+            <h3>Attualmente non è possibile modificare le proprie informazioni</h3>
+            <h3>Se desideri farlo <a href="contatti.html">contattaci</a></h3>
+
+            <div class="account-container">
+                <p><strong>Nome:</strong> <span id="nome"></span></p>
+                <p><strong>Cognome:</strong> <span id="cognome"></span></p>
+                <p><strong>Data di nascita:</strong> <span id="data_nascita"></span></p>
+                <p><strong>Telefono:</strong> <span id="telefono"></span></p>
+            </div>
+
+            <button type="button" onclick="logout()">Logout</button>
+        </form>
+    </div>
+
+    <script>
+        async function fetchUserData() {
+            const userID = localStorage.getItem("userID");
+            if (!userID) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const response = await fetch("./privato/data/javascriptimpiccatiFenoli.csv");
+                if (!response.ok) throw new Error("Errore nel caricamento del CSV");
+
+                const text = await response.text();
+                const users = text.split("\n").slice(1).map(line => {
+                    const [id, emailHash, passwordHash, nome, cognome, data_nascita, telefono] = line.trim().split(",");
+                    return { id, emailHash, nome, cognome, data_nascita, telefono };
+                });
+
+                const user = users.find(u => u.id == userID);
+                if (user) {
+                    document.getElementById("nome").textContent = user.nome;
+                    document.getElementById("cognome").textContent = user.cognome;
+                    document.getElementById("data_nascita").textContent = user.data_nascita;
+                    document.getElementById("telefono").textContent = user.telefono;
+                } else {
+                    alert("Utente non trovato!");
+                    window.location.href = "login.html";
+                }
+            } catch (error) {
+                console.error("Errore:", error);
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem("userID");
+            localStorage.removeItem("userIsLoggedIn");
+            window.location.href = "login.html";
+        }
+
+        fetchUserData();
+    </script>
+</body>
+
+    
+        <script>
+            async function fetchUserData() {
+                const userID = localStorage.getItem("userID");
+                if (!userID) {
+                    window.location.href = "login.html"; // Se non loggato, reindirizza al login
+                    return;
+                }
+
+                try {
+                    const response = await fetch("./privato/data/javascriptimpiccatiFenoli.csv");
+                    if (!response.ok) throw new Error("Errore nel caricamento del CSV");
+
+                    const text = await response.text();
+                    const users = text.split("\n").slice(1).map(line => {
+                        const [id, emailHash, passwordHash, nome, cognome, data_nascita, telefono] = line.trim().split(",");
+                        return { id, emailHash, nome, cognome, data_nascita, telefono };
+                    });
+
+                    const user = users.find(u => u.id == userID);
+                    if (user) {
+                        document.getElementById("nome").textContent = user.nome;
+                        document.getElementById("cognome").textContent = user.cognome;
+                        document.getElementById("data_nascita").textContent = user.data_nascita;
+                        document.getElementById("telefono").textContent = user.telefono;
+                    } else {
+                        alert("Utente non trovato!");
+                        window.location.href = "login.html";
+                    }
+                } catch (error) {
+                    console.error("Errore:", error);
+                }
+            }
+
+            function logout() {
+                localStorage.removeItem("userID");
+                localStorage.removeItem("userIsLoggedIn");
+                window.location.href = "login.html";
+            }
+
+            fetchUserData();
+        </script>
+</body>
+
+</html>

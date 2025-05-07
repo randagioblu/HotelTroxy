@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Grand Hotel Troxy</title>
+</head>
+
+<body>
+    <div class="servizi">
+        <img src="logo.png" class="logo" alt="Grand Troxy Hotel">
+        <div style="font-family: sans-serif;">
+            <a href="index.html" class="servizio-btn">HOME</a>
+        </div>
+    </div>
+
+    <div class="titolo3">
+        <h1>Registrati</h1>
+    </div>
+
+    <div class="reg-form-container">
+        <form class="reg-form" id="reg-form">
+            <h3>Inserire le credenziali</h3>
+            <label for="name">Nome</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="lastname">Cognome</label>
+            <input type="text" id="lastname" name="lastname" required>
+
+            <label for="date">Data di nascita</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="phone">Telefono</label>
+            <input type="text" id="phone" name="phone" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="password2">Conferma Password</label>
+            <input type="password" id="password2" name="password2" required>
+
+            <button type="submit">Registrati</button>
+            <div class="fine">
+                <p>Hai già un account? <span><a href="login.html">Accedi qui</a></span></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Aggiunge l'evento submit solo quando il DOM è completamente carico
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("reg-form").addEventListener("submit", handleSubmit);
+            console.log("event submit aggiunto al form ");
+        });
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+          
+
+            // Verifica che il preventDefault funzioni
+         //   console.log("🟡 Inizio handleSubmit...");
+
+            const name = document.getElementById("name").value;
+            const lastname = document.getElementById("lastname").value;
+            const date = document.getElementById("date").value;
+            const phone = document.getElementById("phone").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const password2 = document.getElementById("password2").value;
+
+            // Controlla che le password coincidano
+            if (password !== password2) {
+                alert("Le password non coincidono!");
+                //console.log("❌ Password non coincidono, uscita dal codice.");
+                return;
+            }
+
+            // Controlla che l'età sia almeno 18 anni
+            const birthDate = new Date(date);
+            const today = new Date();
+            let age = today.getFullYear() - birthDate.getFullYear();
+            const m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if (age < 18) {
+                alert("Devi avere almeno 18 anni per registrarti.");
+                
+                return;
+            }
+
+
+            // Crea un oggetto con i dati del form
+            const userData = {
+                name,
+                lastname,
+                date,
+                phone,
+                email,
+                password
+            };
+          //  console.log("📄 Dati inviati:", userData);
+            // Invia i dati al server
+            try {
+                console.log("📤 Invio richiesta al server...");
+                const response = await fetch("http://localhost:3000/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(userData)
+                });
+                console.log("📩 Stato della risposta:", response.status);
+                const result = await response.json();
+
+               // console.log("📄 Risposta completa:", result);
+               // console.log("✅ response.ok:", response.ok);
+                if (response.ok) {
+                    alert("Registrazione completata con successo!");
+                  //  console.log("✅ Registrazione riuscita. Reindirizzando...");
+
+                    // Reindirizzamento immediato
+                    window.location.href = "login.html";
+                } else {
+                   // console.log("❌ Errore registrazione:", result.message);
+                    alert(result.message || "Errore nella registrazione.");
+                }
+            } catch (error) {
+              //  console.error("Errore:", error);
+                alert("Errore nel server. Riprova più tardi.");
+              //  console.error("❌ ERRORE nel fetch:", error);
+            }
+        }
+    </script>
+
+<script>
+    document.getElementById("phone").addEventListener("input", function(e) {
+        this.value = this.value.replace(/[^0-9]/g, "");
+    });
+</script>
+
+</body>
+
+</html>

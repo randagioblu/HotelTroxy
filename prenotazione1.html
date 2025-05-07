@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Grand Hotel Troxy</title>
+</head>
+
+<body>
+    <div class="servizi">
+        <img src="logo.png" class="logo" alt="Grand Troxy Hotel">
+        <div style="font-family: sans-serif;">
+            <a href="index.html" class="servizio-btn">HOME</a>
+            <a href="account.html" class="servizio-btn">ACCOUNT</a>
+            <a href="chi_siamo.html" class="servizio-btn">CHI SIAMO</a>
+        </div>
+    </div>
+
+    <div class="titolo3">
+        <h1>Prenota stanza Standard </h1>
+    </div>
+
+    <div class="foto">
+        <img src="standard1.png" alt="foto 1">
+        <img src="standard2.png" alt="foto 2">
+        <img src="standard3.jpg" alt="foto 3">
+    </div>
+
+    <br>
+    <br>
+
+    <div class="pren">
+
+        <div class="pren1-form-container">
+            <form class="pre1" id="pre1">
+                <h2>Prenotazione Stanza</h2>
+                <label for="checkin">Data Check-in</label>
+                <input type="date" id="checkin" name="checkin" required min="">
+                <label for="checkout">Data Check-out</label>
+                <input type="date" id="checkout" name="checkout" required min="">
+                <label for="ospiti">Persone</label>
+                <input type="number" id="ospiti" name="ospiti" min="1" required>
+                <label for="ospiti">Numero stanze</label>
+                <input type="number" id="numero" name="numero" min="1" required>
+                <label for="pagamento">Metodo di pagamento</label>
+                <select id="pagamento" name="pagamento">
+                    <option value="carta">Carta di credito</option>
+                    <option value="paypal">PayPal</option>
+                    <option value="bonifico">Bonifico bancario</option>
+                </select>
+            </form>
+        </div>
+
+        <div class="pren1-form-container2">
+            <form class="pre1" id="pre1_1">
+                <h2>Dettagli della Prenotazione</h2>
+                <label for="stanza">Tipo di stanza: <span>STANDARD</span></label>
+                <label for="prezzo">Prezzo a notte: <span>150€</span></label>
+                <label>Aria condizionata</label>
+                <label>Letto matrimoniale</label>
+                <label>Wi-Fi gratuito</label>
+                <label>Set cortesia</label>
+                <label>TV 55 pollici</label>
+
+                <label for="costo">Costo totale</label>
+                <input type="text" id="costo" name="costo" value="€150" readonly>
+
+                <label for="pagamento-selezionato">Metodo di pagamento</label>
+                <input type="text" id="pagamento-selezionato" name="pagamento-selezionato" readonly>
+                <button type="submit">Prenota</button>
+            </form>
+            <div id="errore" style="color: red; margin-top: 10px;"></div>
+        </div>
+
+    </div>
+
+    <script>
+        const userIsLoggedIn = localStorage.getItem('userIsLoggedIn');
+        const userID = localStorage.getItem("userID");
+        if (userIsLoggedIn != 'true') {
+            alert("Devi essere loggato per accedere a questa pagina.");
+            window.location.href = "login.html";
+        }
+
+        window.onload = function () {
+            const oggi = new Date().toISOString().split("T")[0];
+            document.getElementById("checkin").setAttribute("min", oggi);
+            document.getElementById("checkout").setAttribute("min", oggi);
+        };
+        function aggiornaMetodoPagamento() {
+            var metodo = document.getElementById("pagamento").value;
+            document.getElementById("pagamento-selezionato").value = metodo;
+        }
+
+        function mostraErrore(messaggio) {
+            let erroreDiv = document.getElementById("errore");
+            if (!erroreDiv) {
+                erroreDiv = document.createElement("div");
+                erroreDiv.id = "errore";
+                erroreDiv.style.color = "red";
+                erroreDiv.style.marginTop = "10px";
+                document.querySelector(".pren1-form-container").appendChild(erroreDiv);
+            }
+            erroreDiv.textContent = messaggio;
+        }
+
+        function rimuoviErrore() {
+            const erroreDiv = document.getElementById("errore");
+            if (erroreDiv) {
+                erroreDiv.textContent = "";
+            }
+        }
+
+        function calcolaCostoTotale() {
+            const checkin = new Date(document.getElementById("checkin").value);
+            const checkout = new Date(document.getElementById("checkout").value);
+            const numeroStanze = parseInt(document.getElementById("numero").value);
+            const prezzoNotte = 150;
+
+
+            const oggi = new Date();
+            oggi.setHours(0, 0, 0, 0); // resetta l'orario per confrontare solo le date
+
+            if (checkin < oggi) {
+                mostraErrore(" La data di check-in non può essere nel passato.");
+                document.getElementById("costo").value = "€0";
+                return;
+            }
+
+            const timeDiff = checkout - checkin;
+            const giorni = timeDiff / (1000 * 60 * 60 * 24);
+
+            if (isNaN(giorni) || giorni <= 0) {
+                mostraErrore(" Le date inserite non sono valide.");
+                document.getElementById("costo").value = "€0";
+                return;
+            }
+
+            if (isNaN(numeroStanze) || numeroStanze < 1) {
+                mostraErrore(" Inserisci un numero di stanze valido (almeno 1).");
+                document.getElementById("costo").value = "€0";
+                return;
+            }
+
+            rimuoviErrore();
+            const costoTotale = giorni * numeroStanze * prezzoNotte;
+            document.getElementById("costo").value = `€${costoTotale}`;
+        }
+
+        function soloNumeri(e) {
+            const tasto = e.key;
+            // Permetti: numeri, backspace, frecce, tab
+            if (!/[0-9]/.test(tasto) && !['Backspace', 'ArrowLeft', 'ArrowRight', 'Tab'].includes(tasto)) {
+                e.preventDefault();
+            }
+        }
+
+
+        document.getElementById("checkin").addEventListener("change", calcolaCostoTotale);
+        document.getElementById("checkout").addEventListener("change", calcolaCostoTotale);
+        document.getElementById("numero").addEventListener("input", calcolaCostoTotale);
+        document.getElementById("pagamento").addEventListener("change", aggiornaMetodoPagamento);
+        document.getElementById("ospiti").addEventListener("keydown", soloNumeri);
+        document.getElementById("numero").addEventListener("keydown", soloNumeri);
+    </script>
+
+</body>
+
+</html>

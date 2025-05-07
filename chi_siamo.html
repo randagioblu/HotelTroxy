@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="servizi">
+        <img src="logo.png" class="logo" alt="Grand Troxy Hotel">
+        <div style="font-family: sans-serif;">
+            <a href="index.html" class="servizio-btn">HOME</a>
+            <a href="login.html" class="servizio-btn" id="login-account-btn">LOGIN</a>
+            <a href="chi_siamo.html" class="servizio-btn">CHI SIAMO</a>
+        </div>
+    </div>
+
+    <div class="titolo3">
+        <h1>Chi siamo</h1>
+    </div>
+
+    <div class="chi-siamo-container">
+        <div class="chi-siamo-box">
+            <p>
+                L'hotel <strong>Grand Troxy Hotel</strong> è sinonimo di eccellenza e accoglienza. Nato con l'obiettivo di offrire soggiorni esclusivi,
+                ha sviluppato nel tempo una rete di strutture che combinano lusso, eleganza e comfort in location d’eccezione.
+                La nostra filosofia si basa su un’ospitalità autentica e su servizi personalizzati: dall’esperienza gastronomica raffinata,
+                al relax nei centri benessere, fino all'organizzazione di eventi privati e aziendali.
+            </p>
+            <p>
+                Troxy Hotel è il luogo dove ogni dettaglio è pensato per coccolare l’ospite, con uno sguardo sempre attento alla sostenibilità
+                e all’innovazione. Il nostro obiettivo è far sentire ogni ospite a casa, ovunque si trovi.
+            </p>
+            <p>
+                Ogni soggiorno sarà <span>un'oasi di lusso e un'esperienza indimenticabile💎</span>
+            </p>
+
+            <div class="social-icons">
+                <a href="https://www.instagram.com/troxy_hotel_official/" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" alt="Instagram">
+                </a>
+                <a href="https://www.facebook.com" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook">
+                </a>
+                <a href="https://www.twitter.com" target="_blank">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3670/3670151.png" alt="X">
+                </a>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="contatti">
+        <div class="titolo4">Contatti</div>
+        <div class="testo">
+            Email:
+            <span>troxy.hotel104@gmail.com</span>
+            Telefono:
+            <span>334 715 6790</span>
+            Indirizzo:
+            <a href="https://maps.app.goo.gl/eR8XKD4H9FD7Wwu67"><span>Via Soleschiano 90/L</span></a>
+        </div>
+    </div>
+</body>
+
+
+<script>
+ window.onload = function() {
+            const userIsLoggedIn = localStorage.getItem('userIsLoggedIn');
+            const userID = localStorage.getItem("userID");
+            // Trova il pulsante login/account
+            const loginAccountBtn = document.getElementById('login-account-btn');
+
+    
+            if (userIsLoggedIn == 'true') {
+                // Cambia il pulsante Login in Account
+                loginAccountBtn.textContent = 'Account';
+                loginAccountBtn.href = 'account.html'; 
+            } else {
+                // Se non loggato, lascia il pulsante Login
+                loginAccountBtn.textContent = 'Login';
+                loginAccountBtn.href = 'login.html';
+            }
+        }
+
+
+
+</script>
+</html>
+

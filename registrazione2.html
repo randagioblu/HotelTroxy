@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Grand Hotel Troxy</title>
+</head>
+
+<body>
+    <div class="servizi">
+        <div class="servizi">
+            <img src="logo.png" class="logo" alt="Grand Troxy Hotel">
+            <div style="font-family: sans-serif;">
+                <a href="index.html" class="servizio-btn">HOME</a>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="titolo3">
+        <h1>Registrati</h1>
+    </div>
+
+    <div class="reg-form-container">
+        <form class="reg-form" id="reg-form">
+            <h3>Inserire le credenziali</h3>
+            
+            <label for="name">Nome</label>
+            <input type="name" id="name" name="name" required>
+
+            <label for="lastname">Cognome</label>
+            <input type="lastname" id="lastname" name="lastname" required>
+
+            <label for="date">Data di nascita</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="phone">Telefono</label>
+            <input type="phone" id="phone" name="phone" required>
+
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="password2">Conferma Password</label>
+            <input type="password" id="password2" name="password2" required>
+            
+            <button type="button" onclick="login()">Registrati</button>
+            <div class="fine">
+                <p>Hai già un account? <span><a href="login.html">Accedi qui</a></span></p>
+            </div>
+        </form>
+    </div>
